@@ -38,6 +38,7 @@ wss.on('connection', (wsc) => {
   wsc.id = wss.getUniqueID();
 
   setPeers();
+  wsc.send(JSON.stringify({ type: 'setId', value: wsc.id }));
 
   wsc.on('message', (data, isBinary) => {
     const message = isBinary ? data : JSON.parse(data.toString());

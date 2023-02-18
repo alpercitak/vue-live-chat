@@ -4,7 +4,7 @@
       <div class="name">
         <input type="text" v-model="name" placeholder="Name" />
       </div>
-      <div v-for="peer in peers" :key="peer.id">
+      <div class="peer" v-for="peer in peers" v-bind:class="(peer.id === id) ? 'self' : ''" :key="peer.id">
         {{peer.id}}
         {{peer.name ? `(${peer.name})`: ''}}
       </div>
@@ -12,7 +12,7 @@
     <div class="container-chat">
       <div class="container-message-list" ref="messagesContainer">
         <div class="container-message" v-for="item in messages" :key="item.id"
-          :set="senderName = getSenderName(item.senderId)">
+          :set="senderName = getSenderName(item.senderId)" v-bind:class="(item.senderId === id) ? 'self' : ''">
           <div class="info">
             <div>{{ item.dateTime | dateFormat }}</div>
             <div>
@@ -39,6 +39,7 @@ export default {
       peers: [],
       messages: [],
       message: '',
+      id: '',
       name: '',
       connection: null
     }
@@ -59,6 +60,9 @@ export default {
           message: data.message,
           dateTime: new Date(),
         });
+      }
+      if (data.type == 'setId') {
+        this.id = data.value;
       }
     }
     this.connection.onopen = function () {
@@ -126,6 +130,17 @@ export default {
   flex-direction: column;
 }
 
+.row() {
+  border: 1px solid #CCC;
+  background-color: #EEE;
+
+  &.self {
+    background-color: rgba(0, 255, 0, 0.2);
+  }
+}
+
+.self() {}
+
 .main {
   height: 100%;
   display: flex;
@@ -149,6 +164,15 @@ export default {
       width: 100%;
     }
   }
+
+  .peer {
+    .row;
+    padding: 2px;
+    width: 100%;
+    font-size: 12px;
+    display: flex;
+    align-items: flex-start;
+  }
 }
 
 .container-chat {
@@ -166,11 +190,11 @@ export default {
     overflow: auto;
 
     .container-message {
+      .row;
       flex-basis: 100%;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      border: 1px solid #CCC;
       padding: 8px;
       flex-basis: 0;
 
