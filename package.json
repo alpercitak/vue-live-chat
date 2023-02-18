@@ -1,0 +1,15 @@
+{
+  "name": "vue2-live-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "pnpm --stream -r serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "less": "^4.1.3"
+  }
+}
