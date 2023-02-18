@@ -19,7 +19,9 @@ wss.getUniqueID = function () {
 };
 
 const setPeers = (wsc) => {
-  const peers = [...wss.clients].map((x) => x.id);
+  const peers = [...wss.clients].map((x) => {
+    return { id: x.id, name: x.name };
+  });
   const data = JSON.stringify({ type: 'setPeers', value: peers });
 
   if (wsc) {
@@ -53,6 +55,10 @@ wss.on('connection', (wsc) => {
         wss.clients.forEach((wsc) => {
           wsc.send(data);
         });
+        break;
+      case 'setName':
+        wsc.name = message.value;
+        setPeers();
         break;
     }
   });

@@ -1,16 +1,24 @@
 <template>
   <div class="main">
     <div class="container-peers">
-      <div v-for="peer in peers" :key="peer">
-        {{ peer }}
+      <div class="name">
+        <input type="text" v-model="name" placeholder="Name" />
+      </div>
+      <div v-for="peer in peers" :key="peer.id">
+        {{peer.id}}
+        {{peer.name ? `(${peer.name})`: ''}}
       </div>
     </div>
     <div class="container-chat">
       <div class="container-message-list" ref="messagesContainer">
-        <div class="container-message" v-for="item in messages" :key="item.id">
+        <div class="container-message" v-for="item in messages" :key="item.id"
+          :set="senderName = getSenderName(item.senderId)">
           <div class="info">
             <div>{{ item.dateTime | dateFormat }}</div>
-            <div>{{ item.senderId }}</div>
+            <div>
+              {{ item.senderId }}
+              {{ senderName ? `(${senderName})` :'' }}
+            </div>
           </div>
           <div class="message">{{ item.message }}</div>
         </div>
@@ -31,10 +39,13 @@ export default {
       peers: [],
       messages: [],
       message: '',
+      name: '',
       connection: null
     }
   },
   created: function () {
+    let self = this;
+
     this.connection = new WebSocket('ws://localhost:3000/');
     this.connection.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -46,11 +57,15 @@ export default {
           id: data.id,
           senderId: data.senderId,
           message: data.message,
-          dateTime: new Date()
+          dateTime: new Date(),
         });
       }
     }
     this.connection.onopen = function () {
+      if (localStorage.name) {
+        self.name = localStorage.name;
+      }
+      self.setName();
       this.send(JSON.stringify({type: 'getPeers'}));
     }
   },
@@ -61,6 +76,12 @@ export default {
       }
       this.connection.send(JSON.stringify({type: 'sendMessage', value: this.message}));
       this.message = '';
+    },
+    setName: function () {
+      this.connection.send(JSON.stringify({type: 'setName', value: this.name}));
+    },
+    getSenderName: function (senderId) {
+      return this.peers.find(x => x.id === senderId)?.name;
     },
     scrollToElement() {
       const el = this.$refs.scrollToMe;
@@ -87,6 +108,10 @@ export default {
         const container = this.$refs.messagesContainer;
         container.scrollTop = container.scrollHeight;
       });
+    },
+    name: function (newName) {
+      localStorage.name = newName;
+      this.setName();
     }
   }
 }
@@ -115,6 +140,15 @@ export default {
   gap: 4px;
   flex-basis: 25%;
   overflow: auto;
+
+  .name {
+    display: flex;
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
 }
 
 .container-chat {
