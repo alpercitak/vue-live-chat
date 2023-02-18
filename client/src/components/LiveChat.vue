@@ -14,7 +14,7 @@
         <div class="container-message" v-for="item in messages" :key="item.id"
           :set="senderName = getSenderName(item.senderId)" v-bind:class="(item.senderId === id) ? 'self' : ''">
           <div class="info">
-            <div>{{ item.dateTime | dateFormat }}</div>
+            <div>{{ new Date(item.dateTime) | dateFormat }}</div>
             <div>
               {{ item.senderId }}
               {{ senderName ? `(${senderName})` :'' }}
@@ -72,6 +72,15 @@ export default {
       self.setName();
       this.send(JSON.stringify({type: 'getPeers'}));
     }
+
+    if (localStorage.lastMessages) {
+      try {
+        const data = JSON.parse(localStorage.lastMessages);
+        self.messages = data;
+      } catch (e) {
+        console.warn(e);
+      }
+    }
   },
   methods: {
     sendMessage: function () {
@@ -112,6 +121,9 @@ export default {
         const container = this.$refs.messagesContainer;
         container.scrollTop = container.scrollHeight;
       });
+
+      const lastMessages = this.messages.slice(Math.max(this.messages.length - 10, 1));
+      localStorage.lastMessages = JSON.stringify(lastMessages);
     },
     name: function (newName) {
       localStorage.name = newName;
@@ -121,7 +133,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .container() {
   border: 1px solid #DDD;
