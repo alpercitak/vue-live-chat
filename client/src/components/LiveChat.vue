@@ -14,7 +14,7 @@
         <div class="container-message" v-for="item in messages" :key="item.id"
           :set="senderName = getSenderName(item.senderId)" v-bind:class="(item.senderId === id) ? 'self' : ''">
           <div class="info">
-            <div>{{ new Date(item.dateTime) | dateFormat }}</div>
+            <div>{{ dateFormat(new Date(item.dateTime)) }}</div>
             <div>
               {{ item.senderId }}
               {{ senderName ? `(${senderName})` :'' }}
@@ -31,106 +31,91 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'LiveChat',
-  data: function () {
-    return {
-      peers: [],
-      messages: [],
-      message: '',
-      id: '',
-      name: '',
-      connection: null
-    }
-  },
-  created: function () {
-    let self = this;
+<script setup>
+import {ref, watch, onMounted, nextTick} from 'vue';
 
-    this.connection = new WebSocket('ws://localhost:3000/');
-    this.connection.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type == 'setPeers') {
-        this.peers = data.value;
-      }
-      if (data.type == 'sendMessage') {
-        this.messages.push({
-          id: data.id,
-          senderId: data.senderId,
-          message: data.message,
-          dateTime: new Date(),
-        });
-      }
-      if (data.type == 'setId') {
-        this.id = data.value;
-      }
-    }
-    this.connection.onopen = function () {
-      if (localStorage.name) {
-        self.name = localStorage.name;
-      }
-      self.setName();
-      this.send(JSON.stringify({type: 'getPeers'}));
-    }
+const peers = ref([]);
+const messages = ref([]);
+const messagesContainer = ref(null);
+const message = ref('');
+const id = ref('');
+const name = ref('');
+const connection = ref(null);
 
-    if (localStorage.lastMessages) {
-      try {
-        const data = JSON.parse(localStorage.lastMessages);
-        self.messages = data;
-      } catch (e) {
-        console.warn(e);
-      }
-    }
-  },
-  methods: {
-    sendMessage: function () {
-      if (!this.message) {
-        return;
-      }
-      this.connection.send(JSON.stringify({type: 'sendMessage', value: this.message}));
-      this.message = '';
-    },
-    setName: function () {
-      this.connection.send(JSON.stringify({type: 'setName', value: this.name}));
-    },
-    getSenderName: function (senderId) {
-      return this.peers.find(x => x.id === senderId)?.name;
-    },
-    scrollToElement() {
-      const el = this.$refs.scrollToMe;
+function sendMessage() {
+  if (!message.value) {
+    return;
+  }
+  connection.value.send(JSON.stringify({type: 'sendMessage', value: message.value}));
+  message.value = '';
+}
 
-      if (el) {
-        el.scrollIntoView({behavior: 'smooth'});
-      }
+function setName() {
+  connection.value.send(JSON.stringify({type: 'setName', value: name.value}));
+}
+
+function getSenderName(senderId) {
+  return peers.value.find(x => x.id === senderId)?.name;
+}
+
+function dateFormat(value) {
+  const YYYY = value.getFullYear();
+  const MM = (value.getMonth() + 1).toString().padStart(2, '0');
+  const DD = value.getDate();
+  const HH = value.getHours();
+  const mm = value.getMinutes();
+  const ss = value.getSeconds().toString().padStart(2, '0');
+  return `${DD}-${MM}-${YYYY} ${HH}:${mm}:${ss}`;
+}
+
+onMounted(() => {
+  connection.value = new WebSocket('ws://localhost:3000/');
+  connection.value.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    if (data.type == 'setPeers') {
+      peers.value = data.value;
     }
-  },
-  filters: {
-    dateFormat: function (value) {
-      const YYYY = value.getFullYear();
-      const MM = (value.getMonth() + 1).toString().padStart(2, '0');
-      const DD = value.getDate();
-      const HH = value.getHours();
-      const mm = value.getMinutes();
-      const ss = value.getSeconds().toString().padStart(2, '0');
-      return `${DD}-${MM}-${YYYY} ${HH}:${mm}:${ss}`;
-    }
-  },
-  watch: {
-    messages: function () {
-      this.$nextTick(function () {
-        const container = this.$refs.messagesContainer;
-        container.scrollTop = container.scrollHeight;
+    if (data.type == 'sendMessage') {
+      messages.value.push({
+        id: data.id,
+        senderId: data.senderId,
+        message: data.message,
+        dateTime: new Date(),
       });
-
-      const lastMessages = this.messages.slice(Math.max(this.messages.length - 10, 1));
-      localStorage.lastMessages = JSON.stringify(lastMessages);
-    },
-    name: function (newName) {
-      localStorage.name = newName;
-      this.setName();
+    }
+    if (data.type == 'setId') {
+      id.value = data.value;
     }
   }
-}
+  connection.value.onopen = function () {
+    if (localStorage.name) {
+      name.value = localStorage.name;
+    }
+    setName();
+    connection.value.send(JSON.stringify({type: 'getPeers'}));
+  }
+
+  if (localStorage.lastMessages) {
+    try {
+      const data = JSON.parse(localStorage.lastMessages);
+      messages.value = data;
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+});
+
+watch(name, (currentValue) => {
+  localStorage.name = currentValue;
+  setName();
+});
+
+watch(() => [...messages.value], async () => {
+  await nextTick();
+  const container = messagesContainer.value;
+  container.scrollTop = container.offsetHeight;
+});
+
 </script>
 
 <style scoped lang="less">
