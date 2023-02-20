@@ -11,12 +11,14 @@ COPY pnpm-lock.yaml ./
 RUN pnpm install
 
 COPY ./server .
+RUN pnpm run build
+RUN pnpm prune --prod
 
 FROM base AS deploy-server
 
 WORKDIR /app
-COPY --from=build-server /app .
-
+COPY --from=build-server /app/node_modules ./node_modules
+COPY --from=build-server /app/dist .
 CMD ["node", "index.js"]
 
 FROM base AS build-client
