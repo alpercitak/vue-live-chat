@@ -1,15 +1,14 @@
 import { Server, Socket } from 'socket.io';
-
-interface Peer {
-  peerId: String;
-  peerName: String;
-}
-
-interface Message {
-  messageId: String;
-  peerId: String;
-  message: String;
-}
+import {
+  Peer,
+  Message,
+  SocketMessageGetPeers,
+  SocketMessageSetPeers,
+  SocketMessageSetName,
+  SocketMessageSetId,
+  SocketMessageSendMessage,
+  SocketMessageGetMessage,
+} from 'lib';
 
 interface WebSocketClient extends Socket, Peer {}
 
@@ -35,31 +34,31 @@ const setPeers = (wsc: Socket = null!): void => {
     const x = wsc as WebSocketClient;
     return { peerId: x.peerId, peerName: x.peerName };
   });
-  wsc ? wsc.emit('setPeers', peers) : io.emit('setPeers', peers);
+  wsc ? wsc.emit(SocketMessageSetPeers, peers) : io.emit(SocketMessageSetPeers, peers);
 };
 
 io.on('connection', (wsc: Socket): void => {
   const wscExtended = wsc as WebSocketClient;
 
   wscExtended.peerId = getUniqueID();
-  wscExtended.emit('setId', wscExtended.peerId);
+  wscExtended.emit(SocketMessageSetId, wscExtended.peerId);
 
-  wscExtended.on('getPeers', () => {
+  wscExtended.on(SocketMessageGetPeers, () => {
     setPeers(wsc);
   });
 
-  wscExtended.on('setName', (name: String) => {
+  wscExtended.on(SocketMessageSetName, (name: String) => {
     wscExtended.peerName = name;
     setPeers();
   });
 
-  wscExtended.on('sendMessage', (message: String) => {
+  wscExtended.on(SocketMessageSendMessage, (message: String) => {
     const messageData: Message = {
       messageId: getUniqueID(),
       peerId: wscExtended.peerId,
       message,
     };
-    io.emit('getMessage', messageData);
+    io.emit(SocketMessageGetMessage, messageData);
   });
 
   wscExtended.on('disconnect', () => {

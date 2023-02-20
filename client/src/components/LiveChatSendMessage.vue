@@ -8,6 +8,7 @@
 <script setup>
 import {ref} from 'vue';
 import {useLiveChatStore} from '@/stores/liveChat';
+import {SocketMessageSendMessage} from 'lib';
 const store = useLiveChatStore();
 
 const message = ref('');
@@ -16,7 +17,7 @@ function sendMessage() {
   if (!message.value) {
     return;
   }
-  store.connection.emit('sendMessage', message.value);
+  store.connection.emit(SocketMessageSendMessage, message.value);
   message.value = '';
 }
 </script>

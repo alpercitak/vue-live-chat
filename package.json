@@ -8,8 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "less": "^4.1.3"
-  }
+  "license": "ISC"
 }

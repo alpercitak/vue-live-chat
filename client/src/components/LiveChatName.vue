@@ -7,12 +7,13 @@
 <script setup>
 import {onMounted, watch, ref} from 'vue';
 import {useLiveChatStore} from '@/stores/liveChat';
+import {SocketMessageSetName} from 'lib';
 const store = useLiveChatStore();
 
 const name = ref('');
 
 function setName() {
-  store.connection.emit('setName', name.value);
+  store.connection.emit(SocketMessageSetName, name.value);
 }
 
 onMounted(() => {

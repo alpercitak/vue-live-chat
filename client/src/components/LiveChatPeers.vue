@@ -10,11 +10,12 @@
 
 <script setup>
 import {useLiveChatStore} from '@/stores/liveChat';
+import {SocketMessageSetPeers} from 'lib';
 import {onMounted} from 'vue';
 const store = useLiveChatStore();
 
 onMounted(() => {
-  store.connection.on('setPeers', (data) => {
+  store.connection.on(SocketMessageSetPeers, (data) => {
     store.peers = data;
   });
 });

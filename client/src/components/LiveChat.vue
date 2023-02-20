@@ -20,6 +20,7 @@ import LiveChatSendMessage from './LiveChatSendMessage';
 import {onMounted} from 'vue';
 import {useLiveChatStore} from '@/stores/liveChat';
 import {io} from "socket.io-client";
+import {SocketMessageSetId} from "lib";
 
 const store = useLiveChatStore();
 
@@ -28,7 +29,7 @@ onMounted(() => {
   store.connection.on('connect', () => {
     store.isConnectionOpen = true;
   });
-  store.connection.on('setId', (peerId) => {
+  store.connection.on(SocketMessageSetId, (peerId) => {
     store.peerId = peerId;
   })
 });

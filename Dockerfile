@@ -6,34 +6,41 @@ RUN npm i -g pnpm
 FROM base AS build-server
 
 WORKDIR /app
-COPY ./server/package.json ./
-COPY pnpm-lock.yaml ./
-RUN pnpm install
 
-COPY ./server .
-RUN pnpm run build
-RUN pnpm prune --prod
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY server ./server
+COPY lib ./lib
+
+RUN pnpm install --filter ./server
+RUN pnpm run --filter ./server build
+RUN pnpm recursive install --prod
 
 FROM base AS deploy-server
 
 WORKDIR /app
-COPY --from=build-server /app/node_modules ./node_modules
-COPY --from=build-server /app/dist .
-CMD ["node", "index.js"]
+
+ENV NODE_ENV=production
+
+COPY --from=build-server /app/node_modules/.pnpm ./node_modules/.pnpm
+COPY --from=build-server /app/server/node_modules ./server/node_modules
+COPY --from=build-server /app/server/dist ./server/dist
+COPY --from=build-server /app/lib ./lib
+CMD ["node", "server/dist/index.js"]
 
 FROM base AS build-client
 
 WORKDIR /app
-COPY ./client/package.json ./
-COPY pnpm-lock.yaml ./
-RUN pnpm install
 
-COPY ./client .
-RUN pnpm run build
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY client ./client
+COPY lib ./lib
+
+RUN pnpm install --filter ./client
+RUN pnpm run --filter ./client build
 
 FROM nginx:1.18-alpine AS deploy-client
 
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
-COPY --from=build-client /app/dist .
+COPY --from=build-client /app/client/dist .
 ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
