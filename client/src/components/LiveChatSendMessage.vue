@@ -16,7 +16,7 @@ function sendMessage() {
   if (!message.value) {
     return;
   }
-  store.connection.send(JSON.stringify({type: 'sendMessage', value: message.value}));
+  store.connection.emit('sendMessage', message.value);
   message.value = '';
 }
 </script>

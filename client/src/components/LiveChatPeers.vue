@@ -1,15 +1,24 @@
 <template>
   <div class="container">
-    <div class="peer" v-for="peer in store.peers" v-bind:class="(peer.id === store.id) ? 'self' : ''" :key="peer.id">
-      {{peer.id}}
-      {{peer.name ? `(${peer.name})`: ''}}
+    <div class="peer" v-for="peer in store.peers" v-bind:class="(peer.peerId === store.peerId) ? 'self' : ''"
+      :key="peer.peerId">
+      {{peer.peerId}}
+      {{peer.peerName ? `(${peer.peerName})`: ''}}
     </div>
   </div>
 </template>
 
 <script setup>
 import {useLiveChatStore} from '@/stores/liveChat';
+import {onMounted} from 'vue';
 const store = useLiveChatStore();
+
+onMounted(() => {
+  store.connection.on('setPeers', (data) => {
+    store.peers = data;
+  });
+});
+
 </script>
 
 <style scoped lang="less">

@@ -19,33 +19,18 @@ import LiveChatSendMessage from './LiveChatSendMessage';
 
 import {onMounted} from 'vue';
 import {useLiveChatStore} from '@/stores/liveChat';
+import {io} from "socket.io-client";
 
 const store = useLiveChatStore();
 
 onMounted(() => {
-  store.connection = new WebSocket('ws://localhost:3000/');
-  store.connection.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    if (data.type == 'setPeers') {
-      store.peers = data.value;
-    }
-    if (data.type == 'sendMessage') {
-      store.messages.push({
-        id: data.id,
-        senderId: data.senderId,
-        message: data.message,
-        dateTime: new Date(),
-      });
-    }
-    if (data.type == 'setId') {
-      store.id = data.value;
-    }
-  }
-  store.connection.onopen = function () {
+  store.connection = io('ws://localhost:3001/');
+  store.connection.on('connect', () => {
     store.isConnectionOpen = true;
-    store.setName();
-    store.connection.send(JSON.stringify({type: 'getPeers'}));
-  }
+  });
+  store.connection.on('setId', (peerId) => {
+    store.peerId = peerId;
+  })
 });
 </script>
 

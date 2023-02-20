@@ -1,12 +1,12 @@
 <template>
   <div class="container" ref="messagesContainer">
-    <div class="container-message" v-for="item in store.messages" :key="item.id"
-      :set="senderName = getSenderName(item.senderId)" v-bind:class="(item.senderId === store.id) ? 'self' : ''">
+    <div class="container-message" v-for="item in messages" :key="item.messageId"
+      :set="peerName = getPeerName(item.peerId)" v-bind:class="(item.peerId === store.peerId) ? 'self' : ''">
       <div class="info">
         <div>{{ dateFormat(new Date(item.dateTime)) }}</div>
         <div>
-          {{ item.senderId }}
-          {{ senderName ? `(${senderName})` :'' }}
+          {{ item.peerId }}
+          {{ peerName ? `(${peerName})` : '' }}
         </div>
       </div>
       <div class="message">{{ item.message }}</div>
@@ -20,9 +20,10 @@ import {useLiveChatStore} from '@/stores/liveChat';
 
 const store = useLiveChatStore();
 const messagesContainer = ref(null);
+const messages = ref([]);
 
-function getSenderName(senderId) {
-  return store.peers.find(x => x.id === senderId)?.name;
+function getPeerName(peerId) {
+  return store.peers.find(x => x.peerId === peerId)?.peerName;
 }
 
 function dateFormat(value) {
@@ -35,12 +36,12 @@ function dateFormat(value) {
   return `${DD}-${MM}-${YYYY} ${HH}:${mm}:${ss}`;
 }
 
-watch(() => [...store.messages], async () => {
+watch(() => [...messages.value], async () => {
   await nextTick();
   const container = messagesContainer.value;
   container.scrollTop = container.offsetHeight;
 
-  const lastMessages = store.messages.slice(Math.max(store.messages.length - 10, 1));
+  const lastMessages = messages.value.slice(Math.max(messages.value.length - 10, 1));
   localStorage.lastMessages = JSON.stringify(lastMessages);
 });
 
@@ -48,11 +49,16 @@ onMounted(() => {
   if (localStorage.lastMessages) {
     try {
       const data = JSON.parse(localStorage.lastMessages);
-      store.messages = data;
+      messages.value = data;
     } catch (e) {
       console.warn(e);
     }
   }
+
+  store.connection.on('getMessage', (data) => {
+    data.dateTime = new Date();
+    messages.value.push(data);
+  });
 });
 </script>
 
