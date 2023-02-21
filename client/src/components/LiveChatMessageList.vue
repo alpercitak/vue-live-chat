@@ -1,7 +1,7 @@
 <template>
   <div class="container" ref="messagesContainer">
-    <div class="container-message" v-for="item in messages" :key="item.messageId"
-      :set="peerName = getPeerName(item.peerId)" v-bind:class="(item.peerId === store.peerId) ? 'self' : ''">
+    <div class="container-message" v-for="item in messages" :key="item.messageId.toString()"
+      :set="peerName = getPeerName(item.peerId.toString())" v-bind:class="(item.peerId === store.peerId) ? 'self' : ''">
       <div class="info">
         <div>{{ dateFormat(new Date(item.dateTime)) }}</div>
         <div>
@@ -14,20 +14,26 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {watch, nextTick, ref, onMounted} from 'vue';
 import {useLiveChatStore} from '@/stores/liveChat';
-import {SocketMessageGetMessage} from 'lib';
+import {SocketMessageGetMessage, Message, Peer} from 'lib';
+
+interface MessageExtended extends Message {
+  dateTime: Date
+}
 
 const store = useLiveChatStore();
 const messagesContainer = ref(null);
-const messages = ref([]);
+const messages = ref(Array<MessageExtended>());
+let peerName = '';
 
-function getPeerName(peerId) {
-  return store.peers.find(x => x.peerId === peerId)?.peerName;
-}
+const getPeerName = (peerId: string): string => {
+  const peer: Peer = store.peers.find(x => x.peerId === peerId) as Peer;
+  return peer ? peer.peerName : '';
+};
 
-function dateFormat(value) {
+function dateFormat(value: Date) {
   const YYYY = value.getFullYear();
   const MM = (value.getMonth() + 1).toString().padStart(2, '0');
   const DD = value.getDate();
@@ -39,8 +45,10 @@ function dateFormat(value) {
 
 watch(() => [...messages.value], async () => {
   await nextTick();
-  const container = messagesContainer.value;
-  container.scrollTop = container.offsetHeight;
+  if (messagesContainer.value) {
+    const container = (messagesContainer.value as HTMLDivElement);
+    container.scrollTop = container.offsetHeight;
+  }
 
   const lastMessages = messages.value.slice(-10);
   localStorage.lastMessages = JSON.stringify(lastMessages);
@@ -56,9 +64,9 @@ onMounted(() => {
     }
   }
 
-  store.connection.on(SocketMessageGetMessage, (data) => {
-    data.dateTime = new Date();
-    messages.value.push(data);
+  store.connection.on(SocketMessageGetMessage, (data: Message) => {
+    (data as MessageExtended).dateTime = new Date();
+    messages.value.push(data as MessageExtended);
   });
 });
 </script>

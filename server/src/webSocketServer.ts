@@ -19,7 +19,7 @@ const io = new Server(PORT, {
   },
 });
 
-const getUniqueID = (): String => {
+const getUniqueID = (): string => {
   return Array.from(Array(3))
     .map(() => {
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -47,12 +47,12 @@ io.on('connection', (wsc: Socket): void => {
     setPeers(wsc);
   });
 
-  wscExtended.on(SocketMessageSetName, (name: String) => {
+  wscExtended.on(SocketMessageSetName, (name: string) => {
     wscExtended.peerName = name;
     setPeers();
   });
 
-  wscExtended.on(SocketMessageSendMessage, (message: String) => {
+  wscExtended.on(SocketMessageSendMessage, (message: string) => {
     const messageData: Message = {
       messageId: getUniqueID(),
       peerId: wscExtended.peerId,

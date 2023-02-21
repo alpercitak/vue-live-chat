@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {onMounted, watch, ref} from 'vue';
 import {useLiveChatStore} from '@/stores/liveChat';
 import {SocketMessageSetName} from 'lib';
@@ -12,11 +12,11 @@ const store = useLiveChatStore();
 
 const name = ref('');
 
-function setName() {
+function setName(): void {
   store.connection.emit(SocketMessageSetName, name.value);
 }
 
-onMounted(() => {
+onMounted((): void => {
   if (localStorage.name) {
     name.value = localStorage.name;
   }

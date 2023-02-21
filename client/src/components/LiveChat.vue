@@ -11,25 +11,23 @@
   </div>
 </template>
 
-<script setup>
-import LiveChatPeers from './LiveChatPeers';
-import LiveChatName from './LiveChatName';
-import LiveChatMessageList from './LiveChatMessageList';
-import LiveChatSendMessage from './LiveChatSendMessage';
+<script setup lang="ts">
+import LiveChatPeers from './LiveChatPeers.vue';
+import LiveChatName from './LiveChatName.vue';
+import LiveChatMessageList from './LiveChatMessageList.vue';
+import LiveChatSendMessage from './LiveChatSendMessage.vue';
 
 import {onMounted} from 'vue';
 import {useLiveChatStore} from '@/stores/liveChat';
-import {io} from "socket.io-client";
 import {SocketMessageSetId} from "lib";
 
 const store = useLiveChatStore();
 
 onMounted(() => {
-  store.connection = io('ws://localhost:3001/');
   store.connection.on('connect', () => {
     store.isConnectionOpen = true;
   });
-  store.connection.on(SocketMessageSetId, (peerId) => {
+  store.connection.on(SocketMessageSetId, (peerId: string) => {
     store.peerId = peerId;
   })
 });

@@ -6,12 +6,12 @@ export const SocketMessageSendMessage = 'sendMessage';
 export const SocketMessageGetMessage = 'getMessage';
 
 export interface Peer {
-  peerId: String;
-  peerName: String;
+  peerId: string;
+  peerName: string;
 }
 
 export interface Message {
-  messageId: String;
-  peerId: String;
-  message: String;
+  messageId: string;
+  peerId: string;
+  message: string;
 }

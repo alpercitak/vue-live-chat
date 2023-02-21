@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {ref} from 'vue';
 import {useLiveChatStore} from '@/stores/liveChat';
 import {SocketMessageSendMessage} from 'lib';
@@ -13,7 +13,7 @@ const store = useLiveChatStore();
 
 const message = ref('');
 
-function sendMessage() {
+function sendMessage(): void {
   if (!message.value) {
     return;
   }

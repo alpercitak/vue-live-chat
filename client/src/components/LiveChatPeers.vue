@@ -1,21 +1,21 @@
 <template>
   <div class="container">
     <div class="peer" v-for="peer in store.peers" v-bind:class="(peer.peerId === store.peerId) ? 'self' : ''"
-      :key="peer.peerId">
+      v-bind:key="peer.peerId.toString()">
       {{peer.peerId}}
       {{peer.peerName ? `(${peer.peerName})`: ''}}
     </div>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {useLiveChatStore} from '@/stores/liveChat';
-import {SocketMessageSetPeers} from 'lib';
+import {Peer, SocketMessageSetPeers} from 'lib';
 import {onMounted} from 'vue';
 const store = useLiveChatStore();
 
 onMounted(() => {
-  store.connection.on(SocketMessageSetPeers, (data) => {
+  store.connection.on(SocketMessageSetPeers, (data: Peer[]) => {
     store.peers = data;
   });
 });
