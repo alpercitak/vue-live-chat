@@ -9,7 +9,7 @@ export interface Message {
   message: string;
 }
 
-// export const SocketMessageGetPeers = 'getPeers';
+export const SocketMessageGetPeers = 'getPeers';
 export const SocketMessageSetPeers = 'setPeers';
 export const SocketMessageSetName = 'setName';
 export const SocketMessageSetId = 'setId';
