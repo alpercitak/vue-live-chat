@@ -42,7 +42,7 @@ watch(() => [...messages.value], async () => {
   const container = messagesContainer.value;
   container.scrollTop = container.offsetHeight;
 
-  const lastMessages = messages.value.slice(Math.max(messages.value.length - 10, 1));
+  const lastMessages = messages.value.slice(-10);
   localStorage.lastMessages = JSON.stringify(lastMessages);
 });
 
