@@ -8,12 +8,14 @@ import {
   SocketMessageSetId,
   SocketMessageSendMessage,
   SocketMessageGetMessage,
+  SocketServerToClientEvents,
+  SocketClientToServerEvents,
 } from 'lib';
 
 interface WebSocketClient extends Socket, Peer {}
 
 const PORT: number = 3001;
-const io = new Server(PORT, {
+const io = new Server<SocketClientToServerEvents, SocketServerToClientEvents>(PORT, {
   cors: {
     origin: 'http://localhost:8080',
   },
