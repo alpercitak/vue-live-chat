@@ -3,14 +3,21 @@ FROM node:18-alpine AS base
 WORKDIR /app
 RUN npm i -g pnpm
 
+FROM base AS build-lib
+
+WORKDIR /app
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY lib ./lib
+RUN pnpm install --filter ./lib
+RUN pnpm run --filter ./lib build
+
 FROM base AS build-server
 
 WORKDIR /app
-
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY server ./server
-COPY lib ./lib
+COPY --from=build-lib /app/lib ./lib
 
+COPY server ./server
 RUN pnpm install --filter ./server
 RUN pnpm run --filter ./server build
 RUN pnpm recursive install --prod
@@ -32,9 +39,9 @@ FROM base AS build-client
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY client ./client
-COPY lib ./lib
+COPY --from=build-lib /app/lib ./lib
 
+COPY client ./client
 RUN pnpm install --filter ./client
 RUN pnpm run --filter ./client build
 
