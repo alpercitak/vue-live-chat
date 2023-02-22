@@ -1,5 +1,9 @@
 version: '3.8'
 services:
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - '6379:6379'
   app-server:
     image: vue2-live-chat-server
     build:
@@ -7,6 +11,12 @@ services:
     ports:
       - 3000:3000
       - 3001:3001
+    depends_on:
+      - redis
+    links:
+      - redis
+    environment:
+      - APP_REDIS=1
   app-client:
     image: vue2-live-chat-client
     build:

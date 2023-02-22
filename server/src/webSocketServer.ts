@@ -11,15 +11,28 @@ import {
   SocketServerToClientEvents,
   SocketClientToServerEvents,
 } from 'lib';
+import { createAdapter } from '@socket.io/redis-adapter';
+import { createClient } from 'redis';
 
 interface WebSocketClient extends Socket, Peer {}
 
 const PORT: number = 3001;
-const io = new Server<SocketClientToServerEvents, SocketServerToClientEvents>(PORT, {
+const io = new Server<SocketClientToServerEvents, SocketServerToClientEvents>({
   cors: {
     origin: 'http://localhost:8080',
   },
 });
+
+if (process.env.APP_REDIS) {
+  const pubClient = createClient({ url: 'redis://redis:6379' });
+  const subClient = pubClient.duplicate();
+  Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
+    io.adapter(createAdapter(pubClient, subClient));
+    io.listen(PORT);
+  });
+} else {
+  io.listen(PORT);
+}
 
 const getUniqueID = (): string => {
   return Array.from(Array(3))
