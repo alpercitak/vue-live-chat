@@ -4,7 +4,9 @@ import { Peer, SocketServerToClientEvents, SocketClientToServerEvents } from 'li
 import { Socket, io } from 'socket.io-client';
 
 export const useLiveChatStore = defineStore('liveChat', () => {
-  const socket: Socket<SocketServerToClientEvents, SocketClientToServerEvents> = io('ws://localhost:3001/');
+  const socket: Socket<SocketServerToClientEvents, SocketClientToServerEvents> = io('ws://localhost:4000/', {
+    withCredentials: true,
+  });
 
   const connection = ref(socket);
   const isConnectionOpen = ref(false);

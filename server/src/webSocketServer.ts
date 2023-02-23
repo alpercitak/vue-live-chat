@@ -16,15 +16,19 @@ import { createClient } from 'redis';
 
 interface WebSocketClient extends Socket, Peer {}
 
-const PORT: number = 3001;
+const PORT: number = 4000;
 const io = new Server<SocketClientToServerEvents, SocketServerToClientEvents>({
   cors: {
     origin: 'http://localhost:8080',
+    methods: ['GET', 'POST'],
+    credentials: true,
   },
+  transports: ['websocket', 'polling'],
+  allowEIO3: true,
 });
 
 if (process.env.APP_REDIS) {
-  const pubClient = createClient({ url: 'redis://redis:6379' });
+  const pubClient = createClient({ url: 'redis://app-server-redis:6379' });
   const subClient = pubClient.duplicate();
   Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
     io.adapter(createAdapter(pubClient, subClient));
