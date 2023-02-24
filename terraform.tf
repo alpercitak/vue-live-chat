@@ -13,8 +13,8 @@ resource "docker_image" "nginx" {
 }
 
 resource "docker_container" "vue2-live-chat-server-redis" {
-  image = "redis:latest"
-	name = "vue2-live-chat-server-redis"
+  image   = "redis:latest"
+  name    = "vue2-live-chat-server-redis"
   restart = "always"
 
   ports {
@@ -24,17 +24,17 @@ resource "docker_container" "vue2-live-chat-server-redis" {
 }
 
 resource "docker_container" "nginx" {
-  image = "${docker_image.nginx.name}"
+  image = docker_image.nginx.name
   name  = "vue2-live-chat-server-load-balancer"
 
   must_run          = true
   restart           = "always"
   publish_all_ports = false
-  depends_on        = [
+  depends_on = [
     docker_container.vue2-live-chat-server-1,
     docker_container.vue2-live-chat-server-2
   ]
-  links             = [
+  links = [
     "vue2-live-chat-server-1:vue2-live-chat-server-1",
     "vue2-live-chat-server-2:vue2-live-chat-server-2"
   ]
@@ -50,7 +50,7 @@ resource "docker_container" "nginx" {
   }
 
   upload {
-    content = "${file("server/nginx.conf")}"
+    content = file("server/nginx.conf")
     file    = "/etc/nginx/nginx.conf"
   }
 }
@@ -58,15 +58,15 @@ resource "docker_container" "nginx" {
 resource "docker_image" "server_image" {
   name = "server_image"
 
-  build {  
-    path        = "."
-    dockerfile  = "Dockerfile"
-    target      = "deploy-server"
+  build {
+    path       = "."
+    dockerfile = "Dockerfile"
+    target     = "deploy-server"
   }
 }
 
 resource "docker_container" "vue2-live-chat-server-1" {
-  image             = "${docker_image.server_image.image_id}"
+  image             = docker_image.server_image.image_id
   name              = "vue2-live-chat-server-1"
   env               = ["APP_REDIS=1"]
   user              = "node"
@@ -88,7 +88,7 @@ resource "docker_container" "vue2-live-chat-server-1" {
 }
 
 resource "docker_container" "vue2-live-chat-server-2" {
-  image             = "${docker_image.server_image.image_id}"
+  image             = docker_image.server_image.image_id
   name              = "vue2-live-chat-server-2"
   env               = ["APP_REDIS=1"]
   user              = "node"
@@ -112,15 +112,15 @@ resource "docker_container" "vue2-live-chat-server-2" {
 resource "docker_image" "client_image" {
   name = "client_image"
 
-  build {  
-    path        = "."
-    dockerfile  = "Dockerfile"
-    target      = "deploy-client"
+  build {
+    path       = "."
+    dockerfile = "Dockerfile"
+    target     = "deploy-client"
   }
 }
 
 resource "docker_container" "vue2-live-chat-client" {
-  image = "${docker_image.client_image.name}"
+  image = docker_image.client_image.name
   name  = "vue2-live-chat-client"
 
   must_run          = true
@@ -129,7 +129,7 @@ resource "docker_container" "vue2-live-chat-client" {
 
   ports {
     internal = 80
-    external = 8080
+    external = 5173
     protocol = "tcp"
   }
 }

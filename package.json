@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "pnpm --stream -r serve"
+    "dev": "pnpm --stream -r dev"
   },
   "keywords": [],
   "author": "",

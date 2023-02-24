@@ -19,7 +19,7 @@ interface WebSocketClient extends Socket, Peer {}
 const PORT: number = 4000;
 const io = new Server<SocketClientToServerEvents, SocketServerToClientEvents>({
   cors: {
-    origin: 'http://localhost:8080',
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST'],
     credentials: true,
   },

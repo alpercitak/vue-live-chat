@@ -7,6 +7,6 @@ Vue.use(PiniaVuePlugin);
 Vue.config.productionTip = false;
 
 new Vue({
-  render: (h) => h(App),
   pinia,
+  render: (h) => h(App),
 }).$mount('#app');
