@@ -28,9 +28,10 @@ const io = new Server<SocketClientToServerEvents, SocketServerToClientEvents>({
 });
 
 if (process.env.APP_REDIS) {
-  const pubClient = createClient({ url: 'redis://app-server-redis:6379' });
+  const pubClient = createClient({ url: 'redis://host.docker.internal:6379' });
   const subClient = pubClient.duplicate();
   Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
+    console.log('connected to redis');
     io.adapter(createAdapter(pubClient, subClient));
     io.listen(PORT);
   });
