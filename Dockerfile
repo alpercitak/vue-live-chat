@@ -1,4 +1,4 @@
-FROM nginx:1.18-alpine AS deploy-server-load-balancer
+FROM nginx:1.23.3-alpine AS deploy-server-load-balancer
 
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
@@ -20,6 +20,9 @@ COPY lib ./lib
 RUN pnpm install -r --offline --filter ./lib
 RUN pnpm run --filter ./lib build
 
+RUN rm -rf ./node_modules
+RUN pnpm install -r --offline --prod --filter ./lib
+
 FROM base AS build-server
 
 WORKDIR /app
@@ -29,15 +32,17 @@ COPY --from=build-lib /app/lib ./lib
 COPY server ./server
 RUN pnpm install -r --offline --filter ./server
 RUN pnpm run --filter ./server build
+
+RUN rm -rf ./node_modules
+RUN rm -rf ./server/node_modules
 RUN pnpm install -r --offline --prod --filter ./server
 
-FROM base AS deploy-server
+FROM node:18-alpine AS deploy-server
 
 WORKDIR /app
-
 ENV NODE_ENV=production
 
-COPY --from=build-server /app/node_modules/.pnpm ./node_modules/.pnpm
+COPY --from=build-server /app/node_modules/ ./node_modules
 COPY --from=build-server /app/server/node_modules ./server/node_modules
 COPY --from=build-server /app/server/dist ./server/dist
 COPY --from=build-server /app/lib ./lib
@@ -54,7 +59,7 @@ COPY client ./client
 RUN pnpm install -r --offline --filter ./client
 RUN pnpm run --filter ./client build
 
-FROM nginx:1.18-alpine AS deploy-client
+FROM nginx:1.23.3-alpine AS deploy-client
 
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*

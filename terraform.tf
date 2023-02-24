@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "docker_image" "nginx" {
-  name         = "nginx:latest"
+  name         = "nginx:1.23.3-alpine-slim"
   keep_locally = false
 }
 
@@ -55,8 +55,8 @@ resource "docker_container" "nginx" {
   }
 }
 
-resource "docker_image" "server_image" {
-  name = "server_image"
+resource "docker_image" "vue2-live-chat-server-image" {
+  name = "vue2-live-chat-server-image"
 
   build {
     path       = "."
@@ -66,7 +66,7 @@ resource "docker_image" "server_image" {
 }
 
 resource "docker_container" "vue2-live-chat-server-1" {
-  image             = docker_image.server_image.image_id
+  image             = docker_image.vue2-live-chat-server-image.image_id
   name              = "vue2-live-chat-server-1"
   env               = ["APP_REDIS=1"]
   user              = "node"
@@ -88,7 +88,7 @@ resource "docker_container" "vue2-live-chat-server-1" {
 }
 
 resource "docker_container" "vue2-live-chat-server-2" {
-  image             = docker_image.server_image.image_id
+  image             = docker_image.vue2-live-chat-server-image.image_id
   name              = "vue2-live-chat-server-2"
   env               = ["APP_REDIS=1"]
   user              = "node"
@@ -109,8 +109,8 @@ resource "docker_container" "vue2-live-chat-server-2" {
   }
 }
 
-resource "docker_image" "client_image" {
-  name = "client_image"
+resource "docker_image" "vue2-live-chat-client-image" {
+  name = "vue2-live-chat-client-image"
 
   build {
     path       = "."
@@ -120,7 +120,7 @@ resource "docker_image" "client_image" {
 }
 
 resource "docker_container" "vue2-live-chat-client" {
-  image = docker_image.client_image.name
+  image = docker_image.vue2-live-chat-client-image.name
   name  = "vue2-live-chat-client"
 
   must_run          = true
