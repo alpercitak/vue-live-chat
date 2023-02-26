@@ -1,4 +1,4 @@
-FROM nginx:1.23.3-alpine AS deploy-server-load-balancer
+FROM nginx:1.23.3-alpine-slim AS deploy-server-load-balancer
 
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
@@ -59,7 +59,7 @@ COPY client ./client
 RUN pnpm install -r --offline --filter ./client
 RUN pnpm run --filter ./client build
 
-FROM nginx:1.23.3-alpine AS deploy-client
+FROM nginx:1.23.3-alpine-slim AS deploy-client
 
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
