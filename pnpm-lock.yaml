@@ -90,6 +90,12 @@ importers:
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
+      vite:
+        specifier: ^4.4.9
+        version: 4.4.9(@types/node@18.14.0)
+      vite-plugin-node:
+        specifier: ^3.0.2
+        version: 3.0.2(vite@4.4.9)
 
 packages:
 
@@ -483,6 +489,14 @@ packages:
     dependencies:
       '@redis/client': 1.5.5
     dev: false
+
+  /@rollup/pluginutils@4.2.1:
+    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
+    engines: {node: '>= 8.0.0'}
+    dependencies:
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+    dev: true
 
   /@socket.io/component-emitter@3.1.0:
     resolution: {integrity: sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==}
@@ -3009,6 +3023,59 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
     dev: false
+
+  /vite-plugin-node@3.0.2(vite@4.4.9):
+    resolution: {integrity: sha512-pA/QZDe4VRFUSChTrR64EfdsnwHbTnkXKx1Be8MP2oW43TPeQgtIfqiGOuXTPUKjwINtyEl8JMzRN0+dYyfTow==}
+    peerDependencies:
+      '@swc/core': ^1.2.153
+      vite: ^4.0.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      chalk: 4.1.2
+      debug: 4.3.4
+      vite: 4.4.9(@types/node@18.14.0)
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /vite@4.4.9(@types/node@18.14.0):
+    resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 18.14.0
+      esbuild: 0.18.20
+      postcss: 8.4.28
+      rollup: 3.28.1
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
 
   /vite@4.4.9(@types/node@20.5.7)(less@4.2.0):
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
