@@ -10,7 +10,7 @@ import {
   SocketMessageGetMessage,
   SocketServerToClientEvents,
   SocketClientToServerEvents,
-} from 'lib';
+} from '@vue-live-chat/lib';
 import { createAdapter } from '@socket.io/redis-adapter';
 import { createClient } from 'redis';
 

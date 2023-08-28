@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { Peer, SocketServerToClientEvents, SocketClientToServerEvents } from 'lib';
+import { Peer, SocketServerToClientEvents, SocketClientToServerEvents } from '@vue-live-chat/lib';
 import { Socket, io } from 'socket.io-client';
 
 export const useLiveChatStore = defineStore('liveChat', () => {

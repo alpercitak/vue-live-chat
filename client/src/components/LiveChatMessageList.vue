@@ -1,7 +1,12 @@
 <template>
   <div class="container" ref="messagesContainer">
-    <div class="container-message" v-for="item in messages" :key="item.messageId.toString()"
-      :set="peerName = getPeerName(item.peerId.toString())" v-bind:class="(item.peerId === store.peerId) ? 'self' : ''">
+    <div
+      class="container-message"
+      v-for="item in messages"
+      :key="item.messageId.toString()"
+      :set="(peerName = getPeerName(item.peerId.toString()))"
+      v-bind:class="item.peerId === store.peerId ? 'self' : ''"
+    >
       <div class="info">
         <div>{{ dateFormat(new Date(item.dateTime)) }}</div>
         <div>
@@ -15,12 +20,12 @@
 </template>
 
 <script setup lang="ts">
-import {watch, nextTick, ref, onMounted} from 'vue';
-import {useLiveChatStore} from '@/stores/liveChat';
-import {SocketMessageGetMessage, Message, Peer} from 'lib';
+import { watch, nextTick, ref, onMounted } from 'vue';
+import { useLiveChatStore } from '@/stores/liveChat';
+import { SocketMessageGetMessage, Message, Peer } from '@vue-live-chat/lib';
 
 interface MessageExtended extends Message {
-  dateTime: Date
+  dateTime: Date;
 }
 
 const store = useLiveChatStore();
@@ -29,7 +34,7 @@ const messages = ref(Array<MessageExtended>());
 let peerName = '';
 
 const getPeerName = (peerId: string): string => {
-  const peer: Peer = store.peers.find(x => x.peerId === peerId) as Peer;
+  const peer: Peer = store.peers.find((x) => x.peerId === peerId) as Peer;
   return peer ? peer.peerName : '';
 };
 
@@ -43,16 +48,19 @@ function dateFormat(value: Date) {
   return `${DD}-${MM}-${YYYY} ${HH}:${mm}:${ss}`;
 }
 
-watch(() => [...messages.value], async () => {
-  await nextTick();
-  if (messagesContainer.value) {
-    const container = (messagesContainer.value as HTMLDivElement);
-    container.scrollTop = container.offsetHeight;
-  }
+watch(
+  () => [...messages.value],
+  async () => {
+    await nextTick();
+    if (messagesContainer.value) {
+      const container = messagesContainer.value as HTMLDivElement;
+      container.scrollTop = container.offsetHeight;
+    }
 
-  const lastMessages = messages.value.slice(-10);
-  localStorage.lastMessages = JSON.stringify(lastMessages);
-});
+    const lastMessages = messages.value.slice(-10);
+    localStorage.lastMessages = JSON.stringify(lastMessages);
+  }
+);
 
 onMounted(() => {
   if (localStorage.lastMessages) {
@@ -73,8 +81,8 @@ onMounted(() => {
 
 <style scoped lang="less">
 .row() {
-  border: 1px solid #CCC;
-  background-color: #EEE;
+  border: 1px solid #ccc;
+  background-color: #eee;
 
   &.self {
     background-color: rgba(0, 255, 0, 0.2);

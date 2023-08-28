@@ -10,7 +10,7 @@ importers:
 
   client:
     dependencies:
-      lib:
+      '@vue-live-chat/lib':
         specifier: workspace:^1.0.0
         version: link:../lib
       socket.io-client:
@@ -65,12 +65,12 @@ importers:
       '@socket.io/redis-adapter':
         specifier: ^8.1.0
         version: 8.1.0(socket.io-adapter@2.5.2)
+      '@vue-live-chat/lib':
+        specifier: workspace:^1.0.0
+        version: link:../lib
       express:
         specifier: ^4.18.2
         version: 4.18.2
-      lib:
-        specifier: workspace:^1.0.0
-        version: link:../lib
       redis:
         specifier: ^4.6.4
         version: 4.6.4

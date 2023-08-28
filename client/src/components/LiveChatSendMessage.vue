@@ -6,9 +6,9 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
-import {useLiveChatStore} from '@/stores/liveChat';
-import {SocketMessageSendMessage} from 'lib';
+import { ref } from 'vue';
+import { useLiveChatStore } from '@/stores/liveChat';
+import { SocketMessageSendMessage } from '@vue-live-chat/lib';
 const store = useLiveChatStore();
 
 const message = ref('');

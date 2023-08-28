@@ -11,12 +11,4 @@ export default defineConfig({
     },
     extensions: ['ts', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
   },
-  optimizeDeps: {
-    include: ['lib'],
-  },
-  build: {
-    commonjsOptions: {
-      include: [/lib/],
-    },
-  },
 });

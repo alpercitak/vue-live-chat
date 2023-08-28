@@ -17,9 +17,9 @@ import LiveChatName from './LiveChatName.vue';
 import LiveChatMessageList from './LiveChatMessageList.vue';
 import LiveChatSendMessage from './LiveChatSendMessage.vue';
 
-import {onMounted} from 'vue';
-import {useLiveChatStore} from '@/stores/liveChat';
-import {SocketMessageSetId} from "lib";
+import { onMounted } from 'vue';
+import { useLiveChatStore } from '@/stores/liveChat';
+import { SocketMessageSetId } from '@vue-live-chat/lib';
 
 const store = useLiveChatStore();
 
@@ -29,13 +29,13 @@ onMounted(() => {
   });
   store.connection.on(SocketMessageSetId, (peerId: string) => {
     store.peerId = peerId;
-  })
+  });
 });
 </script>
 
 <style scoped lang="less">
 .container() {
-  border: 1px solid #DDD;
+  border: 1px solid #ddd;
   padding: 8px;
   display: flex;
   flex-direction: column;

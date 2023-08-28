@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, watch, ref} from 'vue';
-import {useLiveChatStore} from '@/stores/liveChat';
-import {SocketMessageSetName} from 'lib';
+import { onMounted, watch, ref } from 'vue';
+import { useLiveChatStore } from '@/stores/liveChat';
+import { SocketMessageSetName } from '@vue-live-chat/lib';
 const store = useLiveChatStore();
 
 const name = ref('');
@@ -23,11 +23,13 @@ onMounted((): void => {
   setName();
 });
 
-watch(() => name.value, (newName) => {
-  localStorage.name = newName;
-  setName();
-});
-
+watch(
+  () => name.value,
+  (newName) => {
+    localStorage.name = newName;
+    setName();
+  }
+);
 </script>
 
 <style scoped lang="less">
