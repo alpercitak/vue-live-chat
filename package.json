@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm --stream -r dev"
+    "dev": "pnpm --stream -r dev",
+    "build": "pnpm --stream -r build"
   },
   "keywords": [],
   "author": "",
