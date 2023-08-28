@@ -4,17 +4,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import LiveChat from './components/LiveChat.vue'
-
-export default Vue.extend({
-  name: 'App',
-  components: {
-    LiveChat
-  }
-});
-
+<script setup lang="ts">
+import LiveChat from './components/LiveChat.vue';
 </script>
 
 <style>

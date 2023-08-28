@@ -12,9 +12,9 @@ resource "docker_image" "nginx" {
   keep_locally = false
 }
 
-resource "docker_container" "vue2-live-chat-server-redis" {
+resource "docker_container" "vue-live-chat-server-redis" {
   image   = "redis:latest"
-  name    = "vue2-live-chat-server-redis"
+  name    = "vue-live-chat-server-redis"
   restart = "always"
 
   ports {
@@ -25,18 +25,18 @@ resource "docker_container" "vue2-live-chat-server-redis" {
 
 resource "docker_container" "nginx" {
   image = docker_image.nginx.name
-  name  = "vue2-live-chat-server-load-balancer"
+  name  = "vue-live-chat-server-load-balancer"
 
   must_run          = true
   restart           = "always"
   publish_all_ports = false
   depends_on = [
-    docker_container.vue2-live-chat-server-1,
-    docker_container.vue2-live-chat-server-2
+    docker_container.vue-live-chat-server-1,
+    docker_container.vue-live-chat-server-2
   ]
   links = [
-    "vue2-live-chat-server-1:vue2-live-chat-server-1",
-    "vue2-live-chat-server-2:vue2-live-chat-server-2"
+    "vue-live-chat-server-1:vue-live-chat-server-1",
+    "vue-live-chat-server-2:vue-live-chat-server-2"
   ]
 
   ports {
@@ -55,8 +55,8 @@ resource "docker_container" "nginx" {
   }
 }
 
-resource "docker_image" "vue2-live-chat-server-image" {
-  name = "vue2-live-chat-server-image"
+resource "docker_image" "vue-live-chat-server-image" {
+  name = "vue-live-chat-server-image"
 
   build {
     path       = "."
@@ -65,16 +65,16 @@ resource "docker_image" "vue2-live-chat-server-image" {
   }
 }
 
-resource "docker_container" "vue2-live-chat-server-1" {
-  image             = docker_image.vue2-live-chat-server-image.image_id
-  name              = "vue2-live-chat-server-1"
+resource "docker_container" "vue-live-chat-server-1" {
+  image             = docker_image.vue-live-chat-server-image.image_id
+  name              = "vue-live-chat-server-1"
   env               = ["APP_REDIS=1"]
   user              = "node"
   must_run          = true
   restart           = "always"
   publish_all_ports = true
-  depends_on        = ["docker_container.vue2-live-chat-server-redis"]
-  links             = ["vue2-live-chat-server-redis:vue2-live-chat-server-redis"]
+  depends_on        = ["docker_container.vue-live-chat-server-redis"]
+  links             = ["vue-live-chat-server-redis:vue-live-chat-server-redis"]
 
   ports {
     internal = 3000
@@ -87,16 +87,16 @@ resource "docker_container" "vue2-live-chat-server-1" {
   }
 }
 
-resource "docker_container" "vue2-live-chat-server-2" {
-  image             = docker_image.vue2-live-chat-server-image.image_id
-  name              = "vue2-live-chat-server-2"
+resource "docker_container" "vue-live-chat-server-2" {
+  image             = docker_image.vue-live-chat-server-image.image_id
+  name              = "vue-live-chat-server-2"
   env               = ["APP_REDIS=1"]
   user              = "node"
   must_run          = true
   restart           = "always"
   publish_all_ports = true
-  depends_on        = ["docker_container.vue2-live-chat-server-redis"]
-  links             = ["vue2-live-chat-server-redis:vue2-live-chat-server-redis"]
+  depends_on        = ["docker_container.vue-live-chat-server-redis"]
+  links             = ["vue-live-chat-server-redis:vue-live-chat-server-redis"]
 
   ports {
     internal = 3000
@@ -109,8 +109,8 @@ resource "docker_container" "vue2-live-chat-server-2" {
   }
 }
 
-resource "docker_image" "vue2-live-chat-client-image" {
-  name = "vue2-live-chat-client-image"
+resource "docker_image" "vue-live-chat-client-image" {
+  name = "vue-live-chat-client-image"
 
   build {
     path       = "."
@@ -119,9 +119,9 @@ resource "docker_image" "vue2-live-chat-client-image" {
   }
 }
 
-resource "docker_container" "vue2-live-chat-client" {
-  image = docker_image.vue2-live-chat-client-image.name
-  name  = "vue2-live-chat-client"
+resource "docker_container" "vue-live-chat-client" {
+  image = docker_image.vue-live-chat-client-image.name
+  name  = "vue-live-chat-client"
 
   must_run          = true
   restart           = "always"

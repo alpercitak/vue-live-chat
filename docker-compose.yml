@@ -5,7 +5,7 @@ services:
     ports:
       - '6379:6379'
   app-server-load-balancer:
-    image: vue2-live-chat-server-load-balancer
+    image: vue-live-chat-server-load-balancer
     restart: always
     build:
       target: deploy-server-load-balancer
@@ -15,7 +15,7 @@ services:
     links:
       - app-server
   app-server:
-    image: vue2-live-chat-server
+    image: vue-live-chat-server
     build:
       target: deploy-server
     ports:
@@ -27,7 +27,7 @@ services:
       - APP_REDIS=1
     tty: true
   app-client:
-    image: vue2-live-chat-client
+    image: vue-live-chat-client
     build:
       target: deploy-client
     ports:

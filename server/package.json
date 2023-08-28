@@ -1,10 +1,10 @@
 {
-  "name": "vue2-live-chat-server",
+  "name": "vue-live-chat-server",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "pnpm run --filter=lib build && tsnd --respawn ./src/index.ts",
+    "dev": "tsnd --respawn ./src/index.ts",
     "build": "rm -rf dist && tsc"
   },
   "keywords": [],
