@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useLiveChatStore } from '@/stores/liveChat';
+import { useLiveChatStore } from '@/stores/live-chat';
 import { SocketMessageSetPeers, type Peer } from '@vue-live-chat/lib';
 import { storeToRefs } from 'pinia';
 

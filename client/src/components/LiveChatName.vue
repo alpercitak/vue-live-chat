@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { onMounted, watch, ref } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useLiveChatStore } from '@/stores/liveChat';
+import { useLiveChatStore } from '@/stores/live-chat';
 import { SocketMessageSetName } from '@vue-live-chat/lib';
 
 const store = useLiveChatStore();

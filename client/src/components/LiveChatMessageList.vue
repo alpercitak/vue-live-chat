@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { watch, nextTick, ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useLiveChatStore } from '@/stores/liveChat';
+import { useLiveChatStore } from '@/stores/live-chat';
 import { SocketMessageGetMessage, type Message, type Peer } from '@vue-live-chat/lib';
 
 interface MessageExtended extends Message {

@@ -12,14 +12,13 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import LiveChatPeers from './LiveChatPeers.vue';
 import LiveChatName from './LiveChatName.vue';
 import LiveChatMessageList from './LiveChatMessageList.vue';
 import LiveChatSendMessage from './LiveChatSendMessage.vue';
-
-import { onMounted } from 'vue';
-import { useLiveChatStore } from '@/stores/liveChat';
+import { useLiveChatStore } from '@/stores/live-chat';
 import { SocketMessageSetId } from '@vue-live-chat/lib';
 
 const store = useLiveChatStore();

@@ -1,11 +1,10 @@
-import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import type { Peer, SocketServerToClientEvents, SocketClientToServerEvents } from '@vue-live-chat/lib';
-import { io, type Socket } from 'socket.io-client';
+import { defineStore } from 'pinia';
+import { io } from 'socket.io-client';
+import type { Connection } from './index.types';
+import type { Peer } from '@vue-live-chat/lib';
 
-type Connection = Socket<SocketServerToClientEvents, SocketClientToServerEvents>;
-
-export const useLiveChatStore = defineStore('liveChat', () => {
+export const useLiveChatStore = defineStore('live-chat', () => {
   const socket = io('ws://localhost:4000/', {
     withCredentials: true,
   });
