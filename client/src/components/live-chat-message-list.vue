@@ -3,7 +3,7 @@
     <div
       class="container-message"
       v-for="item in messages"
-      :key="item.messageId.toString()"
+      :key="String(item.messageId)"
       :set="(peerName = getPeerName(item.peerId.toString()))"
       v-bind:class="item.peerId === peerId ? 'self' : ''"
     >
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, nextTick, ref, onMounted } from 'vue';
+import { ref, watch, nextTick, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useLiveChatStore } from '@/stores/live-chat';
 import { SocketMessageGetMessage, type Message, type Peer } from '@vue-live-chat/lib';
