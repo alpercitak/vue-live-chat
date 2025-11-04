@@ -1,5 +1,5 @@
 <template>
-  <div class="main" v-if="store.isConnectionOpen">
+  <div class="main" v-if="isConnectionOpen">
     <div class="container-peers">
       <LiveChatName />
       <LiveChatPeers />
@@ -12,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import LiveChatPeers from './LiveChatPeers.vue';
 import LiveChatName from './LiveChatName.vue';
 import LiveChatMessageList from './LiveChatMessageList.vue';
@@ -22,13 +23,14 @@ import { useLiveChatStore } from '@/stores/liveChat';
 import { SocketMessageSetId } from '@vue-live-chat/lib';
 
 const store = useLiveChatStore();
+const { connection, isConnectionOpen, peerId } = storeToRefs(store);
 
 onMounted(() => {
-  store.connection.on('connect', () => {
-    store.isConnectionOpen = true;
+  connection.value.on('connect', () => {
+    isConnectionOpen.value = true;
   });
-  store.connection.on(SocketMessageSetId, (peerId: string) => {
-    store.peerId = peerId;
+  connection.value.on(SocketMessageSetId, (newPeerId: string) => {
+    peerId.value = newPeerId;
   });
 });
 </script>

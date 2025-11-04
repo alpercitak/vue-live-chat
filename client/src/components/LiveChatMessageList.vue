@@ -5,7 +5,7 @@
       v-for="item in messages"
       :key="item.messageId.toString()"
       :set="(peerName = getPeerName(item.peerId.toString()))"
-      v-bind:class="item.peerId === store.peerId ? 'self' : ''"
+      v-bind:class="item.peerId === peerId ? 'self' : ''"
     >
       <div class="info">
         <div>{{ dateFormat(new Date(item.dateTime)) }}</div>
@@ -21,20 +21,23 @@
 
 <script setup lang="ts">
 import { watch, nextTick, ref, onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useLiveChatStore } from '@/stores/liveChat';
-import { SocketMessageGetMessage, Message, Peer } from '@vue-live-chat/lib';
+import { SocketMessageGetMessage, type Message, type Peer } from '@vue-live-chat/lib';
 
 interface MessageExtended extends Message {
   dateTime: Date;
 }
 
 const store = useLiveChatStore();
+const { connection, peerId, peers } = storeToRefs(store);
+
 const messagesContainer = ref(null);
 const messages = ref(Array<MessageExtended>());
 let peerName = '';
 
 const getPeerName = (peerId: string): string => {
-  const peer: Peer = store.peers.find((x) => x.peerId === peerId) as Peer;
+  const peer = peers.value.find((x) => x.peerId === peerId) as Peer;
   return peer ? peer.peerName : '';
 };
 
@@ -72,7 +75,7 @@ onMounted(() => {
     }
   }
 
-  store.connection.on(SocketMessageGetMessage, (data: Message) => {
+  connection.value.on(SocketMessageGetMessage, (data: Message) => {
     (data as MessageExtended).dateTime = new Date();
     messages.value.push(data as MessageExtended);
   });

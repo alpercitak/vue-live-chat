@@ -1,15 +1,15 @@
-import { Server, Socket } from 'socket.io';
+import { Server, type Socket } from 'socket.io';
 import {
-  Peer,
-  Message,
   SocketMessageGetPeers,
   SocketMessageSetPeers,
   SocketMessageSetName,
   SocketMessageSetId,
   SocketMessageSendMessage,
   SocketMessageGetMessage,
-  SocketServerToClientEvents,
-  SocketClientToServerEvents,
+  type Peer,
+  type Message,
+  type SocketServerToClientEvents,
+  type SocketClientToServerEvents,
 } from '@vue-live-chat/lib';
 import { createAdapter } from '@socket.io/redis-adapter';
 import { createClient } from 'redis';

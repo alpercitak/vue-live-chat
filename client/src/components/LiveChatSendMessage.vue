@@ -7,19 +7,22 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useLiveChatStore } from '@/stores/liveChat';
 import { SocketMessageSendMessage } from '@vue-live-chat/lib';
+
 const store = useLiveChatStore();
+const { connection } = storeToRefs(store);
 
 const message = ref('');
 
-function sendMessage(): void {
+const sendMessage = (): void => {
   if (!message.value) {
     return;
   }
-  store.connection.emit(SocketMessageSendMessage, message.value);
+  connection.value.emit(SocketMessageSendMessage, message.value);
   message.value = '';
-}
+};
 </script>
 
 <style scoped lang="less">

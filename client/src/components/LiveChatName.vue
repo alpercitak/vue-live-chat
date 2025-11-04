@@ -6,15 +6,18 @@
 
 <script setup lang="ts">
 import { onMounted, watch, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useLiveChatStore } from '@/stores/liveChat';
 import { SocketMessageSetName } from '@vue-live-chat/lib';
+
 const store = useLiveChatStore();
+const { connection } = storeToRefs(store);
 
 const name = ref('');
 
-function setName(): void {
-  store.connection.emit(SocketMessageSetName, name.value);
-}
+const setName = (): void => {
+  connection.value.emit(SocketMessageSetName, name.value);
+};
 
 onMounted((): void => {
   if (localStorage.name) {

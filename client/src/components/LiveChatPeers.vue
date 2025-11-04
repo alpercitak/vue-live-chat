@@ -2,8 +2,8 @@
   <div class="container">
     <div
       class="peer"
-      v-for="peer in store.peers"
-      v-bind:class="peer.peerId === store.peerId ? 'self' : ''"
+      v-for="peer in peers"
+      v-bind:class="peer.peerId === peerId ? 'self' : ''"
       v-bind:key="peer.peerId.toString()"
     >
       {{ peer.peerId }}
@@ -13,14 +13,17 @@
 </template>
 
 <script setup lang="ts">
-import { useLiveChatStore } from '@/stores/liveChat';
-import { Peer, SocketMessageSetPeers } from '@vue-live-chat/lib';
 import { onMounted } from 'vue';
+import { useLiveChatStore } from '@/stores/liveChat';
+import { SocketMessageSetPeers, type Peer } from '@vue-live-chat/lib';
+import { storeToRefs } from 'pinia';
+
 const store = useLiveChatStore();
+const { connection, peerId, peers } = storeToRefs(store);
 
 onMounted(() => {
-  store.connection.on(SocketMessageSetPeers, (data: Peer[]) => {
-    store.peers = data;
+  connection.value.on(SocketMessageSetPeers, (data: Peer[]) => {
+    peers.value = data;
   });
 });
 </script>
