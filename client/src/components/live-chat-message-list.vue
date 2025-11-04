@@ -32,7 +32,7 @@ interface MessageExtended extends Message {
 const store = useLiveChatStore();
 const { connection, peerId, peers } = storeToRefs(store);
 
-const messagesContainer = ref(null);
+const messagesContainer = ref<HTMLDivElement | null>(null);
 const messages = ref(Array<MessageExtended>());
 let peerName = '';
 
@@ -56,8 +56,7 @@ watch(
   async () => {
     await nextTick();
     if (messagesContainer.value) {
-      const container = messagesContainer.value as HTMLDivElement;
-      container.scrollTop = container.offsetHeight;
+      messagesContainer.value.scrollTop = messagesContainer.value.offsetHeight;
     }
 
     const lastMessages = messages.value.slice(-10);

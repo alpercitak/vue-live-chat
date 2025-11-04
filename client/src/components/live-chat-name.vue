@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch, ref } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useLiveChatStore } from '@/stores/live-chat';
 import { SocketMessageSetName } from '@vue-live-chat/lib';
@@ -13,13 +13,13 @@ import { SocketMessageSetName } from '@vue-live-chat/lib';
 const store = useLiveChatStore();
 const { connection } = storeToRefs(store);
 
-const name = ref('');
+const name = ref<string>('');
 
 const setName = (): void => {
   connection.value.emit(SocketMessageSetName, name.value);
 };
 
-onMounted((): void => {
+onMounted(() => {
   if (localStorage.name) {
     name.value = localStorage.name;
   }
