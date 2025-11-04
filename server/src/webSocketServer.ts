@@ -39,15 +39,14 @@ if (process.env.APP_REDIS) {
   io.listen(PORT);
 }
 
-const getUniqueID = (): string => {
-  return Array.from(Array(3))
-    .map(() => {
-      return Math.floor((1 + Math.random()) * 0x10000)
+const getUniqueID = (): string =>
+  Array.from(Array(3))
+    .map(() =>
+      Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
-        .substring(1);
-    })
+        .substring(1)
+    )
     .join('-');
-};
 
 const setPeers = (wsc: Socket = null!): void => {
   const peers: Peer[] = [...io.sockets.sockets.values()].map((wsc: Socket) => {
