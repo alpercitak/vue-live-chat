@@ -8,7 +8,11 @@
     "clean": "turbo clean",
     "build": "turbo build"
   },
+  "devDependencies": {
+    "turbo": "latest"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "packageManager": "pnpm@10.20.0"
 }

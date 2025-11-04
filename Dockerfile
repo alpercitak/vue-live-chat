@@ -12,8 +12,6 @@ RUN npm i -g pnpm
 COPY pnpm-lock.yaml ./
 RUN pnpm fetch
 
-RUN npm i -g turbo
-
 COPY . .
 
 FROM base AS build-server
