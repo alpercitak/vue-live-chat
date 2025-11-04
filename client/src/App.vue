@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <LiveChat />
+    <live-chat />
   </div>
 </template>
 
 <script setup lang="ts">
-import LiveChat from './components/LiveChat.vue';
+import LiveChat from './components/live-chat.vue';
 </script>
 
 <style>

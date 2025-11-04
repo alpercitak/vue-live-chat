@@ -4,7 +4,7 @@
       class="peer"
       v-for="peer in peers"
       v-bind:class="peer.peerId === peerId ? 'self' : ''"
-      v-bind:key="peer.peerId.toString()"
+      v-bind:key="String(peer.peerId)"
     >
       {{ peer.peerId }}
       {{ peer.peerName ? `(${peer.peerName})` : '' }}

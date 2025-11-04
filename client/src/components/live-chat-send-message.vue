@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <input type="text" v-model="message" v-on:keyup.enter="sendMessage()" />
-    <button v-on:click="sendMessage()">Send Message</button>
+    <input type="text" v-model="message" v-on:keyup.enter="sendMessage" />
+    <button v-on:click="sendMessage">Send Message</button>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import { SocketMessageSendMessage } from '@vue-live-chat/lib';
 const store = useLiveChatStore();
 const { connection } = storeToRefs(store);
 
-const message = ref('');
+const message = ref<string>('');
 
 const sendMessage = (): void => {
   if (!message.value) {

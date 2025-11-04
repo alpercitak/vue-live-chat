@@ -1,12 +1,12 @@
 <template>
   <div class="main" v-if="isConnectionOpen">
     <div class="container-peers">
-      <LiveChatName />
-      <LiveChatPeers />
+      <live-chat-name />
+      <live-chat-peers />
     </div>
     <div class="container-chat">
-      <LiveChatMessageList />
-      <LiveChatSendMessage />
+      <live-chat-message-list />
+      <live-chat-send-message />
     </div>
   </div>
 </template>
@@ -14,10 +14,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
-import LiveChatPeers from './LiveChatPeers.vue';
-import LiveChatName from './LiveChatName.vue';
-import LiveChatMessageList from './LiveChatMessageList.vue';
-import LiveChatSendMessage from './LiveChatSendMessage.vue';
+import LiveChatPeers from './live-chat-peers.vue';
+import LiveChatName from './live-chat-name.vue';
+import LiveChatMessageList from './live-chat-message-list.vue';
+import LiveChatSendMessage from './live-chat-send-message.vue';
 import { useLiveChatStore } from '@/stores/live-chat';
 import { SocketMessageSetId } from '@vue-live-chat/lib';
 
