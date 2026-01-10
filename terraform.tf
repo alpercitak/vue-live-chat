@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "docker_image" "nginx" {
-  name         = "nginx:1.29.3-alpine-slim"
+  name         = "nginx:1.29.4-alpine-slim"
   keep_locally = false
 }
 

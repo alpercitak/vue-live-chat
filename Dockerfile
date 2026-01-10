@@ -1,4 +1,4 @@
-FROM nginx:1.29.3-alpine-slim AS deploy-server-load-balancer
+FROM nginx:1.29.4-alpine-slim AS deploy-server-load-balancer
 
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
@@ -44,7 +44,7 @@ WORKDIR /app
 RUN pnpm i -r --offline --filter="vue-live-chat-client"
 RUN pnpm turbo build --filter="vue-live-chat-client"
 
-FROM nginx:1.29.3-alpine-slim AS deploy-client
+FROM nginx:1.29.4-alpine-slim AS deploy-client
 
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
