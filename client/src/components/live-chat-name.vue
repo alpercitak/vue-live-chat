@@ -1,6 +1,6 @@
 <template>
   <div class="name">
-    <input type="text" v-model="name" placeholder="Name" />
+    <input type="text" v-model="chatName" placeholder="Name" />
   </div>
 </template>
 
@@ -13,21 +13,21 @@ import { SocketMessageSetName } from '@vue-live-chat/lib';
 const store = useLiveChatStore();
 const { connection } = storeToRefs(store);
 
-const name = ref<string>('');
+const chatName = ref<string>('');
 
 const setName = (): void => {
-  connection.value.emit(SocketMessageSetName, name.value);
+  connection.value.emit(SocketMessageSetName, chatName.value);
 };
 
 onMounted(() => {
   if (localStorage.name) {
-    name.value = localStorage.name;
+    chatName.value = localStorage.name;
   }
   setName();
 });
 
 watch(
-  () => name.value,
+  () => chatName.value,
   (newName) => {
     localStorage.name = newName;
     setName();
