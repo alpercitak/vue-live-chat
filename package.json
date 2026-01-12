@@ -9,7 +9,7 @@
     "build": "turbo build"
   },
   "devDependencies": {
-    "turbo": "latest"
+    "turbo": "^2.7.4"
   },
   "keywords": [],
   "author": "",

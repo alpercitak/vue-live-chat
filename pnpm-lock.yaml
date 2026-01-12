@@ -9,7 +9,7 @@ importers:
   .:
     devDependencies:
       turbo:
-        specifier: latest
+        specifier: ^2.7.4
         version: 2.7.4
 
   client:
@@ -18,10 +18,10 @@ importers:
         specifier: workspace:^1.0.0
         version: link:../lib
       socket.io-client:
-        specifier: ^4.7.2
+        specifier: ^4.8.3
         version: 4.8.3
       vue:
-        specifier: ^3.3.4
+        specifier: ^3.5.26
         version: 3.5.26(typescript@5.9.3)
     devDependencies:
       '@eslint/eslintrc':
@@ -31,16 +31,16 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@rsbuild/core':
-        specifier: ^1.6.1
+        specifier: ^1.7.2
         version: 1.7.2
       '@rsbuild/plugin-less':
         specifier: ^1.5.0
         version: 1.5.0(@rsbuild/core@1.7.2)
       '@rsbuild/plugin-vue':
-        specifier: ^1.2.0
+        specifier: ^1.2.2
         version: 1.2.2(@rsbuild/core@1.7.2)(vue@3.5.26(typescript@5.9.3))
       '@types/node':
-        specifier: ^25.0.0
+        specifier: ^25.0.6
         version: 25.0.6
       eslint:
         specifier: ^9.39.2
@@ -52,10 +52,10 @@ importers:
         specifier: ^17.0.0
         version: 17.0.0
       less:
-        specifier: ^4.2.0
+        specifier: ^4.5.1
         version: 4.5.1
       pinia:
-        specifier: ^3.0.0
+        specifier: ^3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
       typescript:
         specifier: ^5.9.3
@@ -67,41 +67,41 @@ importers:
   lib:
     devDependencies:
       typescript:
-        specifier: ^5.0.0
+        specifier: ^5.9.3
         version: 5.9.3
 
   server:
     dependencies:
       '@socket.io/redis-adapter':
-        specifier: ^8.1.0
+        specifier: ^8.3.0
         version: 8.3.0(socket.io-adapter@2.5.6)
       '@vue-live-chat/lib':
         specifier: workspace:^1.0.0
         version: link:../lib
       express:
-        specifier: ^5.0.0
+        specifier: ^5.2.1
         version: 5.2.1
       redis:
-        specifier: ^5.0.0
+        specifier: ^5.10.0
         version: 5.10.0
       socket.io:
-        specifier: ^4.6.1
+        specifier: ^4.8.3
         version: 4.8.3
     devDependencies:
       '@types/express':
-        specifier: ^5.0.0
+        specifier: ^5.0.6
         version: 5.0.6
       '@types/node':
-        specifier: ^25.0.0
+        specifier: ^25.0.6
         version: 25.0.6
       ts-node-dev:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@25.0.6)(typescript@5.9.3)
       typescript:
-        specifier: ^5.0.0
+        specifier: ^5.9.3
         version: 5.9.3
       vite:
-        specifier: ^7.0.0
+        specifier: ^7.3.1
         version: 7.3.1(@types/node@25.0.6)(jiti@2.6.1)(less@4.5.1)(terser@5.44.1)
       vite-plugin-node:
         specifier: ^7.0.0
