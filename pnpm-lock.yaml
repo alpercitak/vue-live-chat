@@ -110,8 +110,8 @@ importers:
         specifier: ^7.0.0
         version: 7.3.1(@types/node@25.0.6)(jiti@2.6.1)(less@4.5.1)(terser@5.44.1)
       vite-plugin-node:
-        specifier: ^3.0.2
-        version: 3.1.0(vite@7.3.1(@types/node@25.0.6)(jiti@2.6.1)(less@4.5.1)(terser@5.44.1))
+        specifier: ^7.0.0
+        version: 7.0.0(vite@7.3.1(@types/node@25.0.6)(jiti@2.6.1)(less@4.5.1)(terser@5.44.1))
 
 packages:
 
@@ -1074,6 +1074,10 @@ packages:
 
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
+
+  debounce@2.2.0:
+    resolution: {integrity: sha512-Xks6RUDLZFdz8LIdR6q0MTH44k7FikOmnh5xkSjMig6ch45afc8sjTjRQf3P6ax8dMgcQrYO/AR2RGWURrruqw==}
+    engines: {node: '>=18'}
 
   debug@4.3.7:
     resolution: {integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==}
@@ -2116,11 +2120,11 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  vite-plugin-node@3.1.0:
-    resolution: {integrity: sha512-LN9byKedZaokEWcH+DTdeV7YLN34dWH7Em2ldHZ77oVGvC/uxHnK43AGPrV9+9CoOh1x9X3Yc55vW/OQYssFDQ==}
+  vite-plugin-node@7.0.0:
+    resolution: {integrity: sha512-FZqTHvCXUu+U8i6qMtlZCrEvlelUioEf6J4S77XHpZk73frveqKVot60W0hpbffv5OMECXYwP/LAiTGAOLN4/g==}
     peerDependencies:
-      '@swc/core': ^1.2.153
-      vite: ^4.0.0
+      '@swc/core': ^1.7.26
+      vite: ^7.0.0
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -3213,6 +3217,8 @@ snapshots:
   cssesc@3.0.0: {}
 
   csstype@3.2.3: {}
+
+  debounce@2.2.0: {}
 
   debug@4.3.7:
     dependencies:
@@ -4320,10 +4326,11 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-plugin-node@3.1.0(vite@7.3.1(@types/node@25.0.6)(jiti@2.6.1)(less@4.5.1)(terser@5.44.1)):
+  vite-plugin-node@7.0.0(vite@7.3.1(@types/node@25.0.6)(jiti@2.6.1)(less@4.5.1)(terser@5.44.1)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       chalk: 4.1.2
+      debounce: 2.2.0
       debug: 4.4.3
       vite: 7.3.1(@types/node@25.0.6)(jiti@2.6.1)(less@4.5.1)(terser@5.44.1)
     transitivePeerDependencies:
