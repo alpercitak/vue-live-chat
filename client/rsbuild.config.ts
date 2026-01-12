@@ -5,6 +5,9 @@ import { pluginVue } from '@rsbuild/plugin-vue';
 
 export default defineConfig({
   plugins: [pluginLess(), pluginVue()],
+  server: {
+    port: 5173,
+  },
   html: {
     template: './index.html',
   },
