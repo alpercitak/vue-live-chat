@@ -35,7 +35,7 @@ COPY --from=build-server /app/node_modules/ ./node_modules
 COPY --from=build-server /app/server/node_modules ./server/node_modules
 COPY --from=build-server /app/server/dist ./server/dist
 
-CMD ["node", "server/dist/index.mjs"]
+CMD ["node", "server/dist/index.js"]
 
 FROM base AS build-client
 
