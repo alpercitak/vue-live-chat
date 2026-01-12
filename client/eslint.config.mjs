@@ -1,38 +1,35 @@
-import { defineConfig } from 'eslint/config';
-import globals from 'globals';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
+import globals from 'globals';
+import pluginVue from 'eslint-plugin-vue';
+import tseslint from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
-
-export default defineConfig([
+export default tseslint.config(
   {
-    extends: compat.extends(
-      'plugin:vue/essential',
-      'eslint:recommended',
-      '@vue/eslint-config-typescript',
-      '@vue/eslint-config-prettier/skip-formatting'
-    ),
-
+    ignores: ['dist/**', 'node_modules/**', '*.config.mjs'],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...pluginVue.configs['flat/essential'],
+  {
     languageOptions: {
       globals: {
         ...globals.node,
       },
-
-      ecmaVersion: 2020,
-      sourceType: 'commonjs',
+      ecmaVersion: 'latest',
+      sourceType: 'module',
     },
-
-    rules: {},
-
-    ignores: ['dist/**', 'node_modules/**', '*.config.mjs'],
+    files: ['**/*.vue'],
+    languageOptions: {
+      parserOptions: {
+        parser: tseslint.parser,
+        sourceType: 'module',
+      },
+      globals: {
+        ...globals.browser,
+      },
+    },
   },
-]);
+  {
+    rules: {},
+  }
+);
