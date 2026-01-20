@@ -35,7 +35,7 @@ importers:
         version: 1.7.2
       '@rsbuild/plugin-less':
         specifier: ^1.5.0
-        version: 1.5.0(@rsbuild/core@1.7.2)
+        version: 1.5.1(@rsbuild/core@1.7.2)
       '@rsbuild/plugin-vue':
         specifier: ^1.2.2
         version: 1.2.2(@rsbuild/core@1.7.2)(vue@3.5.27(typescript@5.9.3))
@@ -551,10 +551,10 @@ packages:
     engines: {node: '>=18.12.0'}
     hasBin: true
 
-  '@rsbuild/plugin-less@1.5.0':
-    resolution: {integrity: sha512-l+/J4/ZQl6UtCUqAaymo9H917ZJiqX8uxTYesG/xdyYJP2H3dn7fznjDP3d29eQhoY0wc3rcCvvjTYtpYG9OxQ==}
+  '@rsbuild/plugin-less@1.5.1':
+    resolution: {integrity: sha512-rDtx2RkWEAeKiXOMY6ULX8K/2t+FcL2uLdSm1eC/srdyzkn0uhtsxduUS0t4pqUm2Bb+c5GOh5O69SXyPPhmpg==}
     peerDependencies:
-      '@rsbuild/core': 1.x
+      '@rsbuild/core': ^1.0.0 || ^2.0.0-0
 
   '@rsbuild/plugin-vue@1.2.2':
     resolution: {integrity: sha512-BVCejQjVIxsaG0WF3WSBy1jyVjoLjmrWyslSi0eq1zGxLB4BlyEkIvBQguXI9YsxKxKg0VsXIJQjXus03Rzqkg==}
@@ -2505,7 +2505,7 @@ snapshots:
       core-js: 3.47.0
       jiti: 2.6.1
 
-  '@rsbuild/plugin-less@1.5.0(@rsbuild/core@1.7.2)':
+  '@rsbuild/plugin-less@1.5.1(@rsbuild/core@1.7.2)':
     dependencies:
       '@rsbuild/core': 1.7.2
       deepmerge: 4.3.1
