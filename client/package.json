@@ -21,7 +21,7 @@
     "@rsbuild/plugin-less": "^1.5.0",
     "@rsbuild/plugin-vue": "^1.2.2",
     "@types/node": "^25.0.6",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "eslint-plugin-vue": "^10.6.2",
     "globals": "^17.0.0",
     "less": "^4.5.1",
