@@ -38,7 +38,7 @@ importers:
         version: 1.6.0(@rsbuild/core@1.7.3)
       '@rsbuild/plugin-vue':
         specifier: ^1.2.2
-        version: 1.2.6(@rsbuild/core@1.7.3)(@rspack/core@1.7.6(@swc/helpers@0.5.19))(vue@3.5.29(typescript@5.9.3))
+        version: 1.2.7(@rsbuild/core@1.7.3)(@rspack/core@1.7.6(@swc/helpers@0.5.19))(vue@3.5.29(typescript@5.9.3))
       '@types/node':
         specifier: ^25.0.6
         version: 25.4.0
@@ -579,10 +579,13 @@ packages:
     peerDependencies:
       '@rsbuild/core': ^1.3.0 || ^2.0.0-0
 
-  '@rsbuild/plugin-vue@1.2.6':
-    resolution: {integrity: sha512-4DdKAocXrNLghdFfunFRyc3YXKCnYbmAng5FLQD4mqt2imcgf7gggbAreKI1lAc6cd5SMhyIrHTruvWz+oMVWQ==}
+  '@rsbuild/plugin-vue@1.2.7':
+    resolution: {integrity: sha512-epDSChyeR4U+gwq2vfTARV9hbfrmdFTdmhBWIcv7MFyckn3yxJhweJVwdx14Wf3d8s1p4XZzDpqmphDyvX443Q==}
     peerDependencies:
       '@rsbuild/core': ^1.0.0 || ^2.0.0-0
+    peerDependenciesMeta:
+      '@rsbuild/core':
+        optional: true
 
   '@rspack/binding-darwin-arm64@1.7.6':
     resolution: {integrity: sha512-NZ9AWtB1COLUX1tA9HQQvWpTy07NSFfKBU8A6ylWd5KH8AePZztpNgLLAVPTuNO4CZXYpwcoclf8jG/luJcQdQ==}
@@ -2348,10 +2351,11 @@ snapshots:
       deepmerge: 4.3.1
       reduce-configs: 1.1.1
 
-  '@rsbuild/plugin-vue@1.2.6(@rsbuild/core@1.7.3)(@rspack/core@1.7.6(@swc/helpers@0.5.19))(vue@3.5.29(typescript@5.9.3))':
+  '@rsbuild/plugin-vue@1.2.7(@rsbuild/core@1.7.3)(@rspack/core@1.7.6(@swc/helpers@0.5.19))(vue@3.5.29(typescript@5.9.3))':
     dependencies:
-      '@rsbuild/core': 1.7.3
       rspack-vue-loader: 17.5.0(@rspack/core@1.7.6(@swc/helpers@0.5.19))(vue@3.5.29(typescript@5.9.3))
+    optionalDependencies:
+      '@rsbuild/core': 1.7.3
     transitivePeerDependencies:
       - '@rspack/core'
       - '@vue/compiler-sfc'
