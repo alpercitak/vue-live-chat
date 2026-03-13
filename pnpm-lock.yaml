@@ -53,7 +53,7 @@ importers:
         version: 17.4.0
       less:
         specifier: ^4.5.1
-        version: 4.6.3
+        version: 4.6.4
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
@@ -102,10 +102,10 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^8.0.0
-        version: 8.0.0(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.3)(terser@5.46.0)
+        version: 8.0.0(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(terser@5.46.0)
       vite-plugin-node:
         specifier: ^7.0.0
-        version: 7.0.0(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.3)(terser@5.46.0))
+        version: 7.0.0(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(terser@5.46.0))
 
 packages:
 
@@ -1368,8 +1368,8 @@ packages:
       webpack:
         optional: true
 
-  less@4.6.3:
-    resolution: {integrity: sha512-xxjVIiz0rvWAhx49t8YLA/Dj6Uig4XdJgTRI5hbYHGmiDSh+S8hi2Wxsed2trjl/uur4kbW2+e2a8Mrk9Rcgbw==}
+  less@4.6.4:
+    resolution: {integrity: sha512-OJmO5+HxZLLw0RLzkqaNHzcgEAQG7C0y3aMbwtCzIUFZsLMNNq/1IdAdHEycQ58CwUO3jPTHmoN+tE5I7FQxNg==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1527,8 +1527,8 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  needle@3.3.1:
-    resolution: {integrity: sha512-6k0YULvhpw+RoLNiQCRKOl09Rv1dPLr8hHnVjHqdolKwDrdNyk+Hmrthi4lIGPPz3r39dLx0hsF5s40sZ3Us4Q==}
+  needle@3.5.0:
+    resolution: {integrity: sha512-jaQyPKKk2YokHrEg+vFDYxXIHTCBgiZwSHOoVx/8V3GIBS8/VN6NdVRmg8q1ERtPkMvmOvebsgga4sAj5hls/w==}
     engines: {node: '>= 4.4.x'}
     hasBin: true
 
@@ -2402,8 +2402,8 @@ snapshots:
   '@rsbuild/plugin-less@1.6.2(@rsbuild/core@1.7.3)(@rspack/core@1.7.6(@swc/helpers@0.5.19))':
     dependencies:
       deepmerge: 4.3.1
-      less: 4.6.3
-      less-loader: 12.3.2(@rspack/core@1.7.6(@swc/helpers@0.5.19))(less@4.6.3)
+      less: 4.6.4
+      less-loader: 12.3.2(@rspack/core@1.7.6(@swc/helpers@0.5.19))(less@4.6.4)
       reduce-configs: 1.1.1
     optionalDependencies:
       '@rsbuild/core': 1.7.3
@@ -3312,13 +3312,13 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  less-loader@12.3.2(@rspack/core@1.7.6(@swc/helpers@0.5.19))(less@4.6.3):
+  less-loader@12.3.2(@rspack/core@1.7.6(@swc/helpers@0.5.19))(less@4.6.4):
     dependencies:
-      less: 4.6.3
+      less: 4.6.4
     optionalDependencies:
       '@rspack/core': 1.7.6(@swc/helpers@0.5.19)
 
-  less@4.6.3:
+  less@4.6.4:
     dependencies:
       copy-anything: 3.0.5
       parse-node-version: 1.0.1
@@ -3328,7 +3328,7 @@ snapshots:
       image-size: 0.5.5
       make-dir: 2.1.0
       mime: 1.6.0
-      needle: 3.3.1
+      needle: 3.5.0
       source-map: 0.6.1
 
   levn@0.4.1:
@@ -3442,7 +3442,7 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  needle@3.3.1:
+  needle@3.5.0:
     dependencies:
       iconv-lite: 0.6.3
       sax: 1.5.0
@@ -3907,17 +3907,17 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-plugin-node@7.0.0(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.3)(terser@5.46.0)):
+  vite-plugin-node@7.0.0(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(terser@5.46.0)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       chalk: 4.1.2
       debounce: 2.2.0
       debug: 4.4.3
-      vite: 8.0.0(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.3)(terser@5.46.0)
+      vite: 8.0.0(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(terser@5.46.0)
     transitivePeerDependencies:
       - supports-color
 
-  vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.3)(terser@5.46.0):
+  vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(terser@5.46.0):
     dependencies:
       '@oxc-project/runtime': 0.115.0
       lightningcss: 1.32.0
@@ -3930,7 +3930,7 @@ snapshots:
       esbuild: 0.27.2
       fsevents: 2.3.3
       jiti: 2.6.1
-      less: 4.6.3
+      less: 4.6.4
       terser: 5.46.0
 
   vue-eslint-parser@10.2.0(eslint@10.0.3(jiti@2.6.1)):
