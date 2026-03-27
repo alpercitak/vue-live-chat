@@ -104,8 +104,8 @@ importers:
         specifier: ^8.0.0
         version: 8.0.3(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(terser@5.46.0)
       vite-plugin-node:
-        specifier: ^7.0.0
-        version: 7.0.0(vite@8.0.3(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(terser@5.46.0))
+        specifier: ^8.0.0
+        version: 8.0.0(vite@8.0.3(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(terser@5.46.0))
 
 packages:
 
@@ -530,10 +530,6 @@ packages:
 
   '@rolldown/pluginutils@1.0.0-rc.12':
     resolution: {integrity: sha512-HHMwmarRKvoFsJorqYlFeFRzXZqCt2ETQlEDOb9aqssrnVBB1/+xgTGtuTrIk5vzLNX1MjMtTf7W9z3tsSbrxw==}
-
-  '@rollup/pluginutils@4.2.1':
-    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
-    engines: {node: '>= 8.0.0'}
 
   '@rsbuild/core@1.7.4':
     resolution: {integrity: sha512-1hn9j62Kkckh2CGUMQcr/H/PtHgN5iqB3kChaMCVGqxrC4jbJBQxRtuHuWVJDKeEO0uWPMABAR748qJISIyh5w==}
@@ -1961,11 +1957,11 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  vite-plugin-node@7.0.0:
-    resolution: {integrity: sha512-FZqTHvCXUu+U8i6qMtlZCrEvlelUioEf6J4S77XHpZk73frveqKVot60W0hpbffv5OMECXYwP/LAiTGAOLN4/g==}
+  vite-plugin-node@8.0.0:
+    resolution: {integrity: sha512-/jz+hrOULqRfsOwSrA3xU0rm2ED/XLsUkQU3VhuJqaR/gvyGxb0ZRxsamh/U84DCpvIEhYkp2ZwgyDVQ+AmIRQ==}
     peerDependencies:
       '@swc/core': ^1.7.26
-      vite: ^7.0.0
+      vite: ^8.0.0
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -2379,11 +2375,6 @@ snapshots:
     optional: true
 
   '@rolldown/pluginutils@1.0.0-rc.12': {}
-
-  '@rollup/pluginutils@4.2.1':
-    dependencies:
-      estree-walker: 2.0.2
-      picomatch: 2.3.2
 
   '@rsbuild/core@1.7.4':
     dependencies:
@@ -3901,9 +3892,8 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-plugin-node@7.0.0(vite@8.0.3(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(terser@5.46.0)):
+  vite-plugin-node@8.0.0(vite@8.0.3(@types/node@25.5.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(terser@5.46.0)):
     dependencies:
-      '@rollup/pluginutils': 4.2.1
       chalk: 4.1.2
       debounce: 2.2.0
       debug: 4.4.3
