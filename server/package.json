@@ -24,6 +24,6 @@
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3",
     "vite": "^8.0.0",
-    "vite-plugin-node": "^7.0.0"
+    "vite-plugin-node": "^8.0.0"
   }
 }
